@@ -36,7 +36,7 @@ using namespace std;
 #define PI 3.14159
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define SUM(a, b) ((a) + (b))
-// #define HELLO "Hello world"
+#define HELLO "Hello world"
 #define MAX_INT 2000000000
 
 
@@ -60,7 +60,7 @@ using namespace std;
 
 
 // #ifdef, #else, #endif: Використовуються для умовного компіляції з альтернативою. Наприклад: а як це працює:
-#define DEBUG "World"
+// #define DEBUG "World"
 
 #define HELLO "Hello"
 

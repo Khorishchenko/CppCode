@@ -1,221 +1,224 @@
-#include <iostream>
-#include <string>
-#include <set>
-#include <cctype>
-#include <algorithm>
-#include <sstream>
-#include <fstream>
-#include <vector>
-#include <iomanip>
-#include <cstdlib>
-#include <ctime>
-#include <cassert>
-
-
 // Таким чином, завдяки цій функції ви можете встановити місце розташування як Україна або інша країна і користуватися тим алфавітом і тим часом, який є в цій країні.
 // #include "windows.h"
-// SetConsoleCP(65001); //UTF-8
-// SetConsoleOutputCP(65001); //UTF-8
+// setlocale (LC_CTYPE, "ukr");
+#include <iostream>
+#include <chrono>
+#include <list>
+#include <iterator>
+#include <algorithm> // для функції std::max_element
+#include <map>
+#include <set>
+#include <sstream>
+#include <queue>
+#include <vector>
+
+#include <functional> // для std::function
+
+
+// #include <spdlog/spdlog.h>
+// #include <spdlog/sinks/stdout_color_sinks.h>
+// #include <spdlog/sinks/basic_file_sink.h>
 
 
 
-// 2. Поглиблене вивчення функцій:
-// Різновиди функцій:
-// // Функції-члени класів (методи).
-// // Шаблони функцій (template).
-// // Лямбда-функції.
-// // Передача аргументів:
-// // За значенням, за вказівником, за посиланням.
-// // Ключове слово const у параметрах функцій.
-// // Перевантаження функцій та операторів.
+// https://youtu.be/bP5GJN3-zIo
+
+// Лямбда Функції
 
 
+using namespace std;
 
-// // 3. Управління пам’яттю:
-// // Статична та динамічна пам’ять:
-// // Що таке стек і купа (stack and heap).
-// // Використання оператора new та delete.
-// // Робота з покажчиками:
-// // Що таке покажчик, арифметика покажчиків.
-// // Покажчики на функції.
-// // Розумні вказівники (smart pointers):
-// // unique_ptr, shared_ptr, weak_ptr.
-// // Уникнення витоків пам’яті (memory leaks).
-
-
-
-// int AddTwo(int);
-// void print(int);
-
-
-int add(int a, int b) {
-    return a + b;
+void process_data(const std::vector<int>& data, void (*func) (int)) {
+    for (auto d : data) {
+        func(d);
+    }
 }
 
-int subtract(int a, int b) {
-    return a - b;
-}
 
-// template <typename T, typename T1>
-// void Print(const T value, const T1 valueTwo)
+
+class Person {
+public:
+    Person(std::string name, int age) : name_(name), age_(age) {}
+
+    std::string get_name() const { return name_; }
+    int get_age() const { return age_; }
+
+private:
+    std::string name_;
+    int age_;
+};
+
+
+// void print_element(int a)
 // {
-//     std::cout << value << ' ' << valueTwo << std::endl;
+//     cout << a << endl;
 // }
 
-// template <typename T>
-// void Swap(T& , T& );
 
-
-int main()
+void print_vector( std::vector<Person> &arr, void (*fun)(Person) )
 {
-
-
-     // Показник на ціле число:
-    int number = 42;
-    int * ptr = &number;                         // Оголошення вказівника та присвоєння йому адреси змінної
-
-    std::cout << number << std::endl;
-
-    std::cout << ptr << std::endl;
-
-    *ptr = 100;
-    std::cout << number << std::endl;            // Виведення оновленого значення змінно�� через вказівник
-
-
-    
-    // int x = 10;
-
-    
-
-    // *ptr = 10;                                  // Зміна значення змінної через вказівник
-
-
-    
-    int x = 10;
-    int* px;
-    
-         
-    px = &x;                                    // Записуємо адреси змінної x у px
-    std::cout << px << " " << &x << std::endl;  // Відображаємо адресу x через покажчик
-                        
-
-
-    // оказник на рядок C-стилю (масив символів):
-    // const char* text = "Hello, World!";         // Оголошення вказівника на рядок
-    // std::cout << text << std::endl;             // Виведення рядка
-
-
-
-
-    // Масив через вказівник:
-    int arr[] = {1, 2, 3, 4, 5};
-    int* arrPtr = arr;                          // Вказівник на початок масиву
-
-    std::cout << *arrPtr << std::endl;
-    arrPtr++;                                    // Перехід до наступного елемента масиву
-    std::cout << *arrPtr << std::endl;
-    arrPtr++;                                    // Перехід до наступного елемента масиву
-    std::cout << *arrPtr << std::endl;
-
-
-    for (int i = 0; i < 5; i++)
-    {
-        std::cout << arr[i] << " ";            // Виведення елемента масиву через вказівник
-    }
-
-    // ++ -- + - 
-
-    for (int i = 0; i < 5; i++) {
-        std::cout << *arrPtr << " "; 
-        *arrPtr *= 2;           // Виведення елемента масиву через вказівник           // Виведення елемента масиву через вказівник
-        arrPtr++;                               // Перехід до наступного елемента/Можливість використовувати інкремент і декремент
-    }
-    std::cout << std::endl;
-
-    std::cout << *arrPtr << std::endl; 
-
-     for (int i = 0; i < 5; i++) {
-        std::cout << *arrPtr << " "; 
-        *arrPtr = 0;           // Виведення елемента масиву через вказівник
-        std::cout << *arrPtr << " "; 
-
-        arrPtr++;                               // Перехід до наступного елемента/Можливість використовувати інкремент і декремент
-    }
-    std::cout << std::endl;
-
-
-
-
-    for (int i = 0; i < 5; i++)
-    {
-        std::cout << arrPtr[ i ] << " ";            // Виведення елемента масиву через вказівник
-    }
-    std::cout << std::endl;
-
-    std::cout << *arrPtr << std::endl; 
-
-     for (int i = 0; i < 5; i++)
-    {
-        std::cout << arrPtr[ i ] << " ";            // Виведення елемента масиву через вказівник
-    }
-    std::cout << std::endl;
-
-    std::cout << *arrPtr << std::endl;
-    arrPtr++;
-    std::cout << *arrPtr << std::endl;
-    arrPtr++;
-    std::cout << *arrPtr << std::endl;
-
-    arrPtr = arr;
-
-    // Переміщення вказівника вперед на 2 елементи (вказівник на 3)
-    ptr = ptr + 2;
-
-    // Отримання значення, на яке вказує вказівник
-    int value = *ptr; // value = 3
-    
-
-
-    // Використання арифметики масиву:
-    int array[] = {1, 2, 3, 4, 5};
-    int* ptr = array;
-
-    // Доступ до елементу за допомогою індекса масиву через вказівник
-    // int thirdElement = ptr[2]; // thirdElement = 3
-
-
-
-
-    // Вказівник на функцію:
-    int (*functionPtr)(int, int) = add;                         // Вказівник на функцію
-    int result = functionPtr(5, 3);                             // Виклик функції через вказівник
-
-
-    // Масив вказівників на функції:
-    int (*functionPointers[])(int, int) = {add, subtract};      // Масив вказівників на функції
-
-    int result1 = functionPointers[0](5, 3);                    // Виклик функції "add"
-    int result2 = functionPointers[1](5, 3);                    // Виклик функції "subtract"
-
-    return 0;   
+	for (auto &element : arr)
+		fun(element);
 }
 
-// template <typename T>
-// void Swap(T& value, T& valueTwo)
+class MyFunctor
+{
+	public:
+		void operator()(int a)
+		{
+			if (a % 2 != 0)
+				std::cout << a << " is odd" << std::endl;
+		
+		}
+};
+
+// int main()
 // {
-//     T temp = value;
-//     value = valueTwo;
-//     valueTwo = temp;
+// 	// std::vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+// 	// std::for_each(v.begin(), v.end(), MyFunctor());
+
+// 	// Лямбда-вираз у С++ — анонімна функція, яка підтримує стан між викликами і 
+// 	// може отримати доступ до змінних зі своєї області видимості. Використовуючи лямбда-вирази, можна оголошувати функції в будь-якому місці коду.
+
+//     // [code..] (code...) {code...};
+
+//     // int SUM = 0;
+
+// 	// auto sum =  [] ( int a, int b ) -> int
+//     // { 
+//     //     return a + b;
+//     // };
+
+// 	// int result = sum(2, 3); // result буде 5
+
+// 	// std::cout << result << std::endl;
+
+
+
+//     // //  Лямбда з доступом до зовнішніх змінних
+//     // int multiplier = 4;
+
+//     // auto multiply = [ multiplier ] ( int x )
+//     // {
+
+//     //     return x * multiplier; 
+        
+//     // };
+
+//     // std::cout << "Результат: " << multiply( 5 ) << std::endl;
+
+
+
+
+
+//     //  Лямбда з захопленням змінної за посиланням
+//     // int count = 0;
+//     // auto increment = [ &count ] () -> void
+//     // { 
+//     //     ++count; 
+//     // };
+
+//     // increment();
+//     // increment();
+
+//     // std::cout << "count: " << count << std::endl;  // Виведе: 2
+
+
+
+
+
+// 	// Використання лямбда-функції в якості параметру функції:
+
+// 	// std::vector<int> vec = {3, 2, 1, 5, 4};
+// 	// process_data(vec, [](int val) { std::cout << val << " "; });
+
+
+
+// 	// Використання лямбда-функції для порівняння об'єктів класу:
+// 	// Цей код відсортує вектор об'єктів класу Person за зростанням віку.
+
+// 	// std::vector<Person> people = {
+// 	// 	{"Alice", 25},
+// 	// 	{"Bob", 30},
+// 	// 	{"Charlie", 20},
+// 	// };
+
+
+// 	// print_vector( people, [](const Person a)
+// 	// {
+// 	// 	std::cout << a.get_age() << ' ' << a.get_name() << std::endl;
+// 	// });
+//     // cout <<  " =================================================================" << endl;
+
+// 	// std::sort(people.begin(), people.end(), [](const Person& a, const Person& b) {
+// 	// 	return a.get_age() < b.get_age();
+// 	// });
+
+// 	// print_vector(people, [](const Person a)
+// 	// {
+// 	// 	std::cout << a.get_age() << ' ' << a.get_name() << std::endl;
+// 	// });
+// 	// cout <<  " =================================================================" << endl;
+
+
+//     // // // 3. Підрахунок елементів за умовою (count_if):
+//     // vector<int> nums = {1, 2, 3, 4, 5, 6};
+//     // int cnt = count_if(nums.begin(), nums.end(), [](int x) { return x > 3; });
+//     // cout << cnt; 
+
+
+//     // // // 4. Використання з for_each:
+//     // vector<int> nums = {10, 20, 30, 33};
+//     // for_each(nums.begin(), nums.end(), [](int x) {
+//     //     if (x % 2 != 0)
+// 	// 		std::cout << x << " is odd" << std::endl;
+//     // });
+
+
+
+
+
+
+
+//     auto console = spdlog::stdout_color_mt("console");
+//     auto file = spdlog::basic_logger_mt("file", "logs/app.txt");
+//     spdlog::set_default_logger(std::make_shared<spdlog::logger>("multi", spdlog::sinks_init_list{console, file}));
+    
+//     spdlog::info("Привіт, {}!", "Світ");
+//     spdlog::warn("Увага: {}", 42);
+//     spdlog::error("Помилка!");
+
 // }
 
 
-// void print(int number)
-// {
-//     std::cout << "number is " << number << std::endl;
-// }
+
+#include <glog/logging.h>
+#include <spdlog/spdlog.h>
+
+int main(int argc, char* argv[]) {
+    // Ініціалізація (обов'язково)
+    google::InitGoogleLogging(argv[0]);
+    google::InstallFailureSignalHandler(); // опціонально
+
+    LOG(INFO) << "Програма запущена";
+    LOG(WARNING) << "Увага: значення = " << 42;
+    LOG(ERROR) << "Помилка сталася!";
 
 
-// int AddTwo(int number)
+
+    // Лог у файл: logs/INFO_*.log, WARNING_*.log тощо
+    return 0;
+}
+
+
+// int main()
 // {
-//     return number + 2;
+//     auto console = spdlog::stdout_color_mt("console");
+//     auto file = spdlog::basic_logger_mt("file", "logs/app.txt");
+//     spdlog::set_default_logger(std::make_shared<spdlog::logger>("multi", spdlog::sinks_init_list{console, file}));
+    
+//     spdlog::info("Привіт, {}!", "Світ");
+//     spdlog::warn("Увага: {}", 42);
+//     spdlog::error("Помилка!");
+
 // }

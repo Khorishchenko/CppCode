@@ -1,1 +1,0 @@
-Custom Exception new version: Division by zero
