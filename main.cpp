@@ -72,153 +72,106 @@ class MyFunctor
 		}
 };
 
-// int main()
-// {
-// 	// std::vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-// 	// std::for_each(v.begin(), v.end(), MyFunctor());
+int main()
+{
+	std::vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+	std::for_each(v.begin(), v.end(), MyFunctor());
 
-// 	// Лямбда-вираз у С++ — анонімна функція, яка підтримує стан між викликами і 
-// 	// може отримати доступ до змінних зі своєї області видимості. Використовуючи лямбда-вирази, можна оголошувати функції в будь-якому місці коду.
+	// Лямбда-вираз у С++ — анонімна функція, яка підтримує стан між викликами і 
+	// може отримати доступ до змінних зі своєї області видимості. Використовуючи лямбда-вирази, можна оголошувати функції в будь-якому місці коду.
 
-//     // [code..] (code...) {code...};
+    // [code..] (code...) {code...};
 
-//     // int SUM = 0;
+    int SUM = 0;
 
-// 	// auto sum =  [] ( int a, int b ) -> int
-//     // { 
-//     //     return a + b;
-//     // };
+	auto sum =  [] ( int a, int b ) -> int
+    { 
+        return a + b;
+    };
 
-// 	// int result = sum(2, 3); // result буде 5
+	int result = sum(2, 3); // result буде 5
 
-// 	// std::cout << result << std::endl;
+	std::cout << result << std::endl;
 
 
 
-//     // //  Лямбда з доступом до зовнішніх змінних
-//     // int multiplier = 4;
+    //  Лямбда з доступом до зовнішніх змінних
+    int multiplier = 4;
 
-//     // auto multiply = [ multiplier ] ( int x )
-//     // {
+    auto multiply = [ multiplier ] ( int x )
+    {
 
-//     //     return x * multiplier; 
+        return x * multiplier; 
         
-//     // };
+    };
 
-//     // std::cout << "Результат: " << multiply( 5 ) << std::endl;
-
-
-
-
-
-//     //  Лямбда з захопленням змінної за посиланням
-//     // int count = 0;
-//     // auto increment = [ &count ] () -> void
-//     // { 
-//     //     ++count; 
-//     // };
-
-//     // increment();
-//     // increment();
-
-//     // std::cout << "count: " << count << std::endl;  // Виведе: 2
+    std::cout << "Результат: " << multiply( 5 ) << std::endl;
 
 
 
 
 
-// 	// Використання лямбда-функції в якості параметру функції:
+    //  Лямбда з захопленням змінної за посиланням
+    int count = 0;
+    auto increment = [ &count ] () -> void
+    { 
+        ++count; 
+    };
 
-// 	// std::vector<int> vec = {3, 2, 1, 5, 4};
-// 	// process_data(vec, [](int val) { std::cout << val << " "; });
+    increment();
+    increment();
 
-
-
-// 	// Використання лямбда-функції для порівняння об'єктів класу:
-// 	// Цей код відсортує вектор об'єктів класу Person за зростанням віку.
-
-// 	// std::vector<Person> people = {
-// 	// 	{"Alice", 25},
-// 	// 	{"Bob", 30},
-// 	// 	{"Charlie", 20},
-// 	// };
-
-
-// 	// print_vector( people, [](const Person a)
-// 	// {
-// 	// 	std::cout << a.get_age() << ' ' << a.get_name() << std::endl;
-// 	// });
-//     // cout <<  " =================================================================" << endl;
-
-// 	// std::sort(people.begin(), people.end(), [](const Person& a, const Person& b) {
-// 	// 	return a.get_age() < b.get_age();
-// 	// });
-
-// 	// print_vector(people, [](const Person a)
-// 	// {
-// 	// 	std::cout << a.get_age() << ' ' << a.get_name() << std::endl;
-// 	// });
-// 	// cout <<  " =================================================================" << endl;
-
-
-//     // // // 3. Підрахунок елементів за умовою (count_if):
-//     // vector<int> nums = {1, 2, 3, 4, 5, 6};
-//     // int cnt = count_if(nums.begin(), nums.end(), [](int x) { return x > 3; });
-//     // cout << cnt; 
-
-
-//     // // // 4. Використання з for_each:
-//     // vector<int> nums = {10, 20, 30, 33};
-//     // for_each(nums.begin(), nums.end(), [](int x) {
-//     //     if (x % 2 != 0)
-// 	// 		std::cout << x << " is odd" << std::endl;
-//     // });
+    std::cout << "count: " << count << std::endl;  // Виведе: 2
 
 
 
 
 
+	// Використання лямбда-функції в якості параметру функції:
 
-
-//     auto console = spdlog::stdout_color_mt("console");
-//     auto file = spdlog::basic_logger_mt("file", "logs/app.txt");
-//     spdlog::set_default_logger(std::make_shared<spdlog::logger>("multi", spdlog::sinks_init_list{console, file}));
-    
-//     spdlog::info("Привіт, {}!", "Світ");
-//     spdlog::warn("Увага: {}", 42);
-//     spdlog::error("Помилка!");
-
-// }
+	std::vector<int> vec = {3, 2, 1, 5, 4};
+	process_data(vec, [](int val) { std::cout << val << " "; });
 
 
 
-#include <glog/logging.h>
-#include <spdlog/spdlog.h>
+	// Використання лямбда-функції для порівняння об'єктів класу:
+	// Цей код відсортує вектор об'єктів класу Person за зростанням віку.
 
-int main(int argc, char* argv[]) {
-    // Ініціалізація (обов'язково)
-    google::InitGoogleLogging(argv[0]);
-    google::InstallFailureSignalHandler(); // опціонально
-
-    LOG(INFO) << "Програма запущена";
-    LOG(WARNING) << "Увага: значення = " << 42;
-    LOG(ERROR) << "Помилка сталася!";
+	std::vector<Person> people = {
+		{"Alice", 25},
+		{"Bob", 30},
+		{"Charlie", 20},
+	};
 
 
+	print_vector( people, [](const Person a)
+	{
+		std::cout << a.get_age() << ' ' << a.get_name() << std::endl;
+	});
+    cout <<  " =================================================================" << endl;
 
-    // Лог у файл: logs/INFO_*.log, WARNING_*.log тощо
-    return 0;
+	std::sort(people.begin(), people.end(), [](const Person& a, const Person& b) {
+		return a.get_age() < b.get_age();
+	});
+
+	print_vector(people, [](const Person a)
+	{
+		std::cout << a.get_age() << ' ' << a.get_name() << std::endl;
+	});
+	cout <<  " =================================================================" << endl;
+
+
+    // // 3. Підрахунок елементів за умовою (count_if):
+    vector<int> nums = {1, 2, 3, 4, 5, 6};
+    int cnt = count_if(nums.begin(), nums.end(), [](int x) { return x > 3; });
+    cout << cnt; 
+
+
+    // // 4. Використання з for_each:
+    vector<int> nums = {10, 20, 30, 33};
+    for_each(nums.begin(), nums.end(), [](int x) {
+        if (x % 2 != 0)
+			std::cout << x << " is odd" << std::endl;
+    });
+
 }
-
-
-// int main()
-// {
-//     auto console = spdlog::stdout_color_mt("console");
-//     auto file = spdlog::basic_logger_mt("file", "logs/app.txt");
-//     spdlog::set_default_logger(std::make_shared<spdlog::logger>("multi", spdlog::sinks_init_list{console, file}));
-    
-//     spdlog::info("Привіт, {}!", "Світ");
-//     spdlog::warn("Увага: {}", 42);
-//     spdlog::error("Помилка!");
-
-// }

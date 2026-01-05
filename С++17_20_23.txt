@@ -1,0 +1,149 @@
+//======================================================================
+//======================================================================
+// C++14 — ключові приклади
+
+// Авто в лямбдах + узагальнені лямбди
+auto lambda = [](auto x, auto y) { return x + y; };
+int a = lambda(5, 10);
+double b = lambda(3.14, 1.23);
+
+// make_unique (нарешті!)
+auto ptr = std::make_unique<int>(42);
+
+// Бінарні літерали + роздільники цифр
+int bin = 0b1010'1010;
+int big = 1'234'567;
+
+
+
+
+
+
+//======================================================================
+//======================================================================
+
+
+
+// C++17 — найчастіше використовують
+
+// 1. Структуровані прив’язки (всі їх люблять)
+std::map<std::string, int> m = {{"age", 25}};
+for (const auto& [key, value] : m)
+    std::cout << key << ": " << value << '\n';
+
+// 2. std::optional
+std::optional<int> find_value() { return 42; }
+if (auto val = find_value()) std::cout << *val;
+
+// 3. std::string_view — без копіювання
+void print(std::string_view sv) { std::cout << sv << '\n'; }
+print("hello world");  // не створює std::string
+
+// 4. std::filesystem
+for (const auto& entry : std::filesystem::directory_iterator(".")) 
+    std::cout << entry.path() << '\n';
+
+// 5. if constexpr
+template<typename T>
+void process(T t) {
+    if constexpr (std::is_integral_v<T>)
+        std::cout << "ціле\n";
+    else
+        std::cout << "не ціле\n";
+}
+
+
+
+
+
+
+
+//======================================================================
+//======================================================================
+
+
+// C++20 — найчастіше використовують у нових проєктах
+
+// 1. Концепти — заміна SFINAE
+template<std::integral T>
+void inc(T& x) { ++x; }
+
+// або з requires
+void inc(auto& x) requires std::integral<decltype(x)> { ++x; }
+
+// 2. ranges — сучасний STL
+std::vector<int> v = {1, 2, 3, 4, 5, 6};
+auto even = v | std::views::filter([](int x){ return x % 2 == 0; })
+              | std::views::transform([](int x){ return x * x; });
+
+for (int x : even) std::cout << x << ' ';  // 4 16 36
+
+// 3. std::span — вью на масив без володіння
+void process(const std::span<const int> data) {
+    for (int x : data) std::cout << x << ' ';
+}
+int arr[] = {1,2,3,4};
+process(arr);
+
+// 4. spaceship operator <=>
+struct Point { int x, y; };
+auto operator<=>(const Point&, const Point&) = default;
+
+// 5. constexpr std::vector (C++20 + деякі реалізації)
+constexpr auto sum() {
+    std::vector<int> v = {1,2,3,4,5};
+    int s = 0;
+    for (int x : v) s += x;
+    return s;
+}
+static_assert(sum() == 15);
+
+
+
+
+
+
+//======================================================================
+//======================================================================
+
+
+
+// C++23 — вже активно використовують (2024–2025)
+// 1. std::expected — Result<T, Error>
+std::expected<int, std::string> divide(int a, int b) {
+    if (b == 0) return std::unexpected("division by zero");
+    return a / b;
+}
+
+auto result = divide(10, 0);
+if (result) std::cout << *result;
+else std::cout << result.error();
+
+// 2. std::print — нарешті нормальний вивід!
+std::print("Привіт, {}! Ти на {} курсі.\n", "Олег", 3);
+
+// 3. flat_map / flat_set
+std::flat_map<std::string, int> scores = {
+    {"Іван", 95}, {"Оля", 88}, {"Петро", 100}
+};
+std::print("Петро: {}\n", scores["Петро"]);
+
+// 4. Роздільники в літералах (зручніше читати)
+auto big = 1'234'567'890uz;   // unsigned size_t
+auto bytes = 0xFF'AA'00'11uz;
+
+
+
+
+
+//======================================================================
+//======================================================================
+
+// Найпоширеніші флаги компілятора у 2025:
+// # Найчастіше:
+
+// -std=c++20          # стабільно, концепти + ranges
+// -std=c++23          # нові проєкти, print + expected
+
+// # Поки рідко:
+// -std=c++26          # ще не вийшов

@@ -18,28 +18,28 @@ using namespace std;
 
 
 
-class Car {
-public:
-    std::string brand;
-    std::string model;
-    int year;
+// class Car {
+// public:
+//     std::string brand;
+//     std::string model;
+//     int year;
 
-    void displayInfo() {
-        std::cout << "Brand: " << brand << ", Model: " << model << ", Year: " << year << std::endl;
-    }
-};
+//     void displayInfo() {
+//         std::cout << "Brand: " << brand << ", Model: " << model << ", Year: " << year << std::endl;
+//     }
+// };
 
-int main() {
-    Car car1;
+// int main() {
+//     Car car1;
 
-    car1.brand = "Toyota";
-    car1.model = "Camry";
-    car1.year = 2020;
+//     car1.brand = "Toyota";
+//     car1.model = "Camry";
+//     car1.year = 2020;
 
-    car1.displayInfo(); // Виведе: Brand: Toyota, Model: Camry, Year: 2020
+//     car1.displayInfo(); // Виведе: Brand: Toyota, Model: Camry, Year: 2020
 
-    return 0;
-}
+//     return 0;
+// }
 
 
 
@@ -201,14 +201,14 @@ public:
     }
 };
 
-int main() 
-{
-    Dog myDog;
-    myDog.eat();  // Виклик методу, успадкованого від класу Animal
-    myDog.bark(); // Виклик методу класу Dog
+// int main() 
+// {
+//     Dog myDog;
+//     myDog.eat();  // Виклик методу, успадкованого від класу Animal
+//     myDog.bark(); // Виклик методу класу Dog
 
-    return 0;
-}
+//     return 0;
+// }
 
 
 
